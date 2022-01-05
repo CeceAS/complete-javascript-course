@@ -177,6 +177,37 @@ const randomInt = (min, max) =>
   Math.floor(Math.random() * (max - min + 1) + min);
 
 const randomColor = () =>
-  `rbg(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`;
+  `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`;
 
 console.log(randomColor());
+
+document.querySelector('.nav__link').addEventListener('click', function (e) {
+  this.style.backgroundColor = randomColor();
+  console.log('link', e.target, e.currentTarget);
+
+  // stop propagation:
+  e.stopPropagation();
+});
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  // console.log('link!');
+  this.style.backgroundColor = randomColor();
+  console.log('container', e.target, e.currentTarget);
+});
+document.querySelector('.nav').addEventListener('click', function (e) {
+  this.style.backgroundColor = randomColor();
+  console.log('nav', e.target, e.currentTarget);
+});
+
+const btnsAddScoreArray = document.querySelectorAll('.form__btn--add-score');
+
+const scoreInput = document.querySelectorAll('.score__input');
+
+btnsAddScoreArray.forEach(function (btn, i, btnArray) {
+  btn.addEventListener('click', function (e) {
+    e.preventDefault();
+    const newScore = scoreInput[i];
+
+    players[i].scores.push(newScore);
+  });
+});
